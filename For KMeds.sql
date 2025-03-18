@@ -2,8 +2,8 @@ with
     RECENCY as (
         select
             T1.CARDUP_PAYMENT_CUSTOMER_COMPANY_ID COMPANY_ID,
-            MAX(DATE('2024-10-01')) - MAX(DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS)) DAYS_SINCE_LAST_TX,
-            MAX(DATE('2024-10-01')) - MIN(DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS)) DAYS_SINCE_FIRST_TX
+            MAX(DATE('2025-03-01')) - MAX(DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS)) DAYS_SINCE_LAST_TX,
+            MAX(DATE('2025-03-01')) - MIN(DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS)) DAYS_SINCE_FIRST_TX
         from
             ADM.TRANSACTION.CARDUP_PAYMENT_DENORM_T T1
             join (
@@ -18,8 +18,8 @@ with
             CARDUP_PAYMENT_STATUS NOT IN ('Payment Failed', 'Cancelled', 'Refunded', 'Refunding')
             AND CARDUP_PAYMENT_USER_TYPE IN ('business', 'guest')
             and CARDUP_PAYMENT_CU_LOCALE_ID = 1
-            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2023-10-01')
-            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) <= DATE('2024-09-30')
+            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2024-03-01')
+            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) <= DATE('2025-02-28')
         group by
             1
     ),
@@ -44,8 +44,8 @@ with
             AND CARDUP_PAYMENT_USER_TYPE IN ('business', 'guest')
             and CARDUP_PAYMENT_CU_LOCALE_ID = 1
             and OWNER = 'Unmanaged'
-            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2023-10-01')
-            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) <= DATE('2024-09-30')
+            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2024-03-01')
+            and DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) <= DATE('2025-02-28')
         group by
             1,
             2,
@@ -202,7 +202,7 @@ from
         from
             ADM.TRANSACTION.CARDUP_PAYMENT_DENORM_T
         where
-            DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2024-07-01')
+            DATE(CARDUP_PAYMENT_SUCCESS_AT_UTC_TS) >= DATE('2024-10-01')
     ) T3 on T3.CARDUP_PAYMENT_CUSTOMER_COMPANY_ID = MAIN_UNMANAGED.COMPANY_ID
 where
     OWNER = 'Unmanaged';
