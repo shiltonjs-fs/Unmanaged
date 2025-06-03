@@ -68,4 +68,5 @@ where
     AND CARDUP_PAYMENT_USER_TYPE IN ('business', 'guest')
     and T1.CARDUP_PAYMENT_CU_LOCALE_ID = 1
     and T5.CU_LOCALE_ID = 1
-    and CARDUP_PAYMENT_STATUS NOT IN ('Payment Failed', 'Cancelled', 'Refunded', 'Refunding');
+    and CARDUP_PAYMENT_STATUS NOT IN ('Payment Failed', 'Cancelled', 'Refunded', 'Refunding')
+    and status in ('Active');
